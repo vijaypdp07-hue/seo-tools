@@ -117,6 +117,10 @@ import { KeywordsDensityCheckerPage } from "./pages/tools/KeywordsDensityChecker
 import { HoursCalculatorPage } from "./pages/tools/HoursCalculator.page";
 
 import { ContactPage } from "./pages/Contact.page";
+import { DesignStudioPage } from "./pages/tools/DesignStudio.page";
+import { AIToolsPage } from "./pages/tools/AITools.page";
+import { GenericAIToolPage } from "./pages/tools/GenericAITool.page";
+import { ToolsIndexPage } from "./pages/ToolsIndex.page";
 
 export default function App() {
   return (
@@ -129,6 +133,7 @@ export default function App() {
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="dashboard/history" element={<HistoryPage />} />
           <Route path="dashboard/saved" element={<SavedPage />} />
+          <Route path="tools" element={<ToolsIndexPage />} />
           
           <Route path="tools/text" element={<TextToolsPage />} />
           <Route path="tools/text/word-counter" element={<WordCounterPage />} />
@@ -270,6 +275,31 @@ export default function App() {
           <Route path="tools/other/password-generator" element={<PasswordGeneratorPage />} />
           <Route path="tools/other/qr-code-generator" element={<QrCodeGeneratorPage />} />
           <Route path="tools/other/find-facebook-id" element={<ComingSoonPage title="Find Facebook ID" categoryName="Other Tools" />} />
+
+          {/* Design Studio Tools (Phase 6) */}
+          <Route path="tools/design/logo-maker" element={<DesignStudioPage title="Logo Maker" description="Design beautiful vector logos instantly." slug="logo-maker" categoryName="Design Tools" categoryPath="/tools/design" width={800} height={800} />} />
+          <Route path="tools/design/resume-builder" element={<DesignStudioPage title="Resume Builder" description="Craft a professional CV or Resume." slug="resume-builder" categoryName="Design Tools" categoryPath="/tools/design" width={794} height={1123} />} />
+          <Route path="tools/design/flyer-maker" element={<DesignStudioPage title="Flyer Maker" description="Build gorgeous event flyers and banners." slug="flyer-maker" categoryName="Design Tools" categoryPath="/tools/design" width={794} height={1123} />} />
+          <Route path="tools/design/poster-maker" element={<DesignStudioPage title="Poster Maker" description="Design large format posters easily." slug="poster-maker" categoryName="Design Tools" categoryPath="/tools/design" width={1080} height={1920} />} />
+          <Route path="tools/design/invitation-maker" element={<DesignStudioPage title="Invitation Maker" description="Create elegant cards and invitations." slug="invitation-maker" categoryName="Design Tools" categoryPath="/tools/design" width={1050} height={1500} />} />
+          <Route path="tools/design/business-card-maker" element={<DesignStudioPage title="Business Card Maker" description="Design custom business cards." slug="business-card-maker" categoryName="Design Tools" categoryPath="/tools/design" width={1050} height={600} />} />
+
+          {/* AI Tools (Phase 4) */}
+          <Route path="tools/ai" element={<AIToolsPage />} />
+          <Route path="tools/ai/plagiarism-checker" element={<ComingSoonPage title="Plagiarism Checker" categoryName="AI Tools" />} />
+          <Route path="tools/ai/essay-writer" element={<ComingSoonPage title="AI Essay Writer" categoryName="AI Tools" />} />
+          <Route path="tools/ai/article-rewriter" element={<GenericAIToolPage title="Article Rewriter" description="Rewrite complete articles easily using AI." slug="article-rewriter" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Please rewrite the following article to make it unique and engaging while preserving the original meaning:" actionButtonText="Rewrite Article" />} />
+          <Route path="tools/ai/grammar-checker" element={<GenericAIToolPage title="Free Grammar Checker" description="Check and correct grammar instantly." slug="grammar-checker" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Please review the following text. Correct all grammar, spelling, and punctuation errors. Provide the corrected text only:" actionButtonText="Check Grammar" />} />
+          <Route path="tools/ai/spell-checker" element={<GenericAIToolPage title="Spell Checker" description="Advanced spelling correction." slug="spell-checker" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Correct any spelling errors in the following text. Provide the corrected text only:" actionButtonText="Check Spelling" />} />
+          <Route path="tools/ai/paraphraser" element={<GenericAIToolPage title="Paraphrasing Tool" description="Paraphrase sentences instantly." slug="paraphraser" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Paraphrase the following text. Rephrase it in a natural and fluent way:" actionButtonText="Paraphrase" />} />
+          <Route path="tools/ai/paragraph-generator" element={<GenericAIToolPage title="Paragraph Generator" description="Generate AI paragraphs from prompts." slug="paragraph-generator" categoryName="AI Tools" categoryPath="/tools/ai" inputLabel="Writing Prompt" inputPlaceholder="What should the paragraph be about?" promptTemplate="Generate a well-written paragraph based on the following prompt:" actionButtonText="Generate Paragraph" />} />
+          <Route path="tools/ai/title-generator" element={<GenericAIToolPage title="Title Generator" description="Generate catchy titles." slug="title-generator" categoryName="AI Tools" categoryPath="/tools/ai" inputLabel="Topic or Description" inputPlaceholder="E.g., An article about AI taking over..." promptTemplate="Generate a list of 5 catchy and engaging titles based on the following topic or description:" actionButtonText="Generate Titles" />} />
+          <Route path="tools/ai/summarizer" element={<GenericAIToolPage title="Text Summarizer" description="Summarize long texts." slug="summarizer" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Summarize the following text into key bullet points and a short concluding paragraph:" actionButtonText="Summarize Text" />} />
+          <Route path="tools/ai/email-writer" element={<GenericAIToolPage title="AI Email Writer" description="Draft professional emails." slug="email-writer" categoryName="AI Tools" categoryPath="/tools/ai" inputLabel="Email Details" inputPlaceholder="E.g., Write a polite email to my boss asking for next Friday off..." promptTemplate="Draft a professional and well-formatted email based on the following instructions:" actionButtonText="Write Email" />} />
+          <Route path="tools/ai/story-generator" element={<GenericAIToolPage title="AI Story Generator" description="Write creative stories." slug="story-generator" categoryName="AI Tools" categoryPath="/tools/ai" inputLabel="Story Prompt" inputPlaceholder="E.g., A sci-fi story about a time traveler..." promptTemplate="Write an engaging and creative short story based on the following prompt:" actionButtonText="Generate Story" />} />
+          <Route path="tools/ai/content-detector" element={<GenericAIToolPage title="AI Content Detector" description="Detect AI generated content." slug="content-detector" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Analyze the following text and determine the probability of it being written by AI vs a human. Provide a clear percentage breakdown and reasoning:" actionButtonText="Analyze Content" />} />
+          <Route path="tools/ai/humanizer" element={<GenericAIToolPage title="AI Humanizer" description="Make AI text sound more human." slug="humanizer" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Rewrite the following text to make it sound completely human, natural, conversational, and avoiding typical AI formalisms:" actionButtonText="Humanize Text" />} />
+          <Route path="tools/ai/ai-writer" element={<GenericAIToolPage title="AI Writer" description="General-purpose AI writing assistant." slug="ai-writer" categoryName="AI Tools" categoryPath="/tools/ai" inputLabel="What do you want to write?" inputPlaceholder="Describe what you want the AI to write..." promptTemplate="Please write the following:" actionButtonText="Write Content" />} />
 
           <Route path="*" element={<div className="p-8 text-center"><h2 className="text-2xl font-bold">404 - Not Found</h2></div>} />
         </Route>

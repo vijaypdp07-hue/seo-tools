@@ -4,6 +4,7 @@ import { createServer as createViteServer } from "vite";
 import dns from "dns/promises";
 import * as http from "http";
 import * as https from "https";
+import { GoogleGenAI } from "@google/genai";
 
 async function startServer() {
   const app = express();
@@ -31,7 +32,7 @@ async function startServer() {
       }
 
       // Initialize Resend dynamically
-      const { Resend } = require("resend");
+      const { Resend } = await import("resend");
       const resend = new Resend(apiKey);
       
       // Send notification to support
@@ -682,6 +683,40 @@ async function startServer() {
           });
       } catch (err: any) {
           res.status(500).json({ error: "Page speed test failed: " + err.message });
+      }
+  });
+
+  // Phase 4: Generic AI Tools endpoint
+  app.post("/api/tools/ai", async (req, res) => {
+      const { text, promptTemplate, systemInstruction } = req.body;
+      if (!promptTemplate && !text) {
+          return res.status(400).json({ error: "Text or promptTemplate is required" });
+      }
+
+      try {
+          if (!process.env.GEMINI_API_KEY) {
+              return res.json({
+                  result: "Mocked AI Result: " + (text ? text.slice(0, 20) + "..." : "Generated content..."),
+                  mocked: true
+              });
+          }
+
+          const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+          
+          let userPrompt = text ? `${promptTemplate || "Process the following text:"}\n\n${text}` : promptTemplate;
+
+          const response = await ai.models.generateContent({
+              model: "gemini-2.5-flash",
+              contents: userPrompt,
+              config: {
+                systemInstruction: systemInstruction || "You are a helpful assistant.",
+              }
+          });
+
+          res.json({ result: response.text });
+      } catch (err: any) {
+          console.error("AI API failed:", err);
+          res.status(500).json({ error: "AI generation failed: " + err.message });
       }
   });
 

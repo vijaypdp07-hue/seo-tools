@@ -41,6 +41,12 @@ export function MergePdfPage() {
       const pdfBytes = await mergedPdf.save();
       const blob = new Blob([pdfBytes], { type: "application/pdf" });
       setMergedPdfUrl(URL.createObjectURL(blob));
+
+      // Record History
+      const { useHistoryStore } = await import('@/lib/store/useHistoryStore');
+      useHistoryStore.getState().recordUsage('merge-pdf', 'PDF Tools', '/tools/pdf/merge-pdf', {
+        result: `${files.length} PDFs merged into one.`
+      });
     } catch (err) {
       console.error(err);
       setErrorMsg("Failed to merge PDFs. One of the files might be corrupted or password protected.");

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Copy, Trash2, Download, Check, Save } from "lucide-react";
+import { Copy, Trash2, Download, Check, Save, Share } from "lucide-react";
 import { ToolWrapper } from "@/components/shared/ToolWrapper";
 import { useLocalStorage } from "@/lib/hooks/useLocalStorage";
 
@@ -12,8 +12,9 @@ export function OnlineNotepadPage() {
   useEffect(() => {
      if (text) {
          setSavedStatus("Saving...");
-         const t = setTimeout(() => setSavedStatus("Saved locally"), 500);
-         return () => clearTimeout(t);
+         const t = setTimeout(() => setSavedStatus("Changes Saved"), 500);
+         const t2 = setTimeout(() => setSavedStatus(""), 3000); // Hide after a bit
+         return () => { clearTimeout(t); clearTimeout(t2); };
      } else {
          setSavedStatus("");
      }
@@ -39,6 +40,38 @@ export function OnlineNotepadPage() {
     URL.revokeObjectURL(url);
   };
 
+  const handleShare = async () => {
+    const shareUrl = window.location.href;
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: "Online Notepad",
+          url: shareUrl,
+        });
+      } catch (err) {
+        console.error("Error sharing:", err);
+      }
+    } else {
+      navigator.clipboard.writeText(shareUrl);
+      alert("URL copied to clipboard!");
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        handleDownload();
+      } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'p') {
+        e.preventDefault();
+        window.print();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [text]);
+
   return (
     <ToolWrapper
       title="Online Notepad"
@@ -60,11 +93,7 @@ export function OnlineNotepadPage() {
     >
       <div className="flex flex-col h-[600px]">
         {/* Input Actions */}
-        <div className="flex items-center justify-between p-2 pb-0 bg-bg-secondary border-b border-border-base">
-            <div className="flex gap-4 items-center pl-2">
-                 {savedStatus && <span className="text-sm font-medium text-text-muted flex items-center gap-1"><Save className="size-3" /> {savedStatus}</span>}
-            </div>
-            
+        <div className="flex items-center justify-end p-2 pb-0 bg-bg-secondary border-b border-border-base relative">
              <button 
                  onClick={() => {
                      if (window.confirm("Are you sure you want to clear your notes?")) {
@@ -86,7 +115,13 @@ export function OnlineNotepadPage() {
         />
 
         {/* Universal Output Actions */}
-        <div className="border-t border-border-base p-2 bg-bg-secondary flex justify-end gap-2">
+        <div className="border-t border-border-base p-2 bg-bg-secondary flex justify-end gap-2 relative">
+            <button 
+                onClick={handleShare}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium border border-border-base bg-bg-base text-text-primary hover:bg-bg-secondary hover:border-primary rounded-md transition-colors"
+            >
+                <Share className="size-4" /> Share
+            </button>
             <button 
                 onClick={handleCopy}
                 disabled={!text}
@@ -101,6 +136,16 @@ export function OnlineNotepadPage() {
             >
                 <Download className="size-4" /> Download
             </button>
+            
+            {/* Floating Toast Notification */}
+            {savedStatus && (
+                <div className="absolute top-[-60px] right-6 animate-in slide-in-from-bottom-2 fade-in duration-300">
+                    <div className="bg-bg-base border border-border-base shadow-lg rounded-full px-4 py-2 flex items-center gap-2 text-sm font-medium text-text-primary">
+                        <Check className="size-4 text-emerald-500" />
+                        {savedStatus}
+                    </div>
+                </div>
+            )}
         </div>
       </div>
     </ToolWrapper>

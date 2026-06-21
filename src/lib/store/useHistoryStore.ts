@@ -9,13 +9,14 @@ export type HistoryEntry = {
   category: string;
   toolPath?: string;
   usedAt: any;
+  data?: any;
 };
 
 interface HistoryState {
   history: HistoryEntry[];
   isLoading: boolean;
   fetchHistory: () => Promise<void>;
-  recordUsage: (toolSlug: string, category: string, toolPath?: string) => Promise<void>;
+  recordUsage: (toolSlug: string, category: string, toolPath?: string, data?: any) => Promise<void>;
   clearHistory: () => Promise<void>;
 }
 
@@ -46,22 +47,26 @@ export const useHistoryStore = create<HistoryState>((set, get) => ({
     }
   },
 
-  recordUsage: async (toolSlug: string, category: string, toolPath?: string) => {
+  recordUsage: async (toolSlug: string, category: string, toolPath?: string, data?: any) => {
     const user = useAuthStore.getState().user;
     if (!user) return; // Silent if guest
 
     try {
       const historyRef = collection(db, "users", user.uid, "history");
-      const docRef = await addDoc(historyRef, {
+      const payload: any = {
         toolSlug,
         category,
         toolPath: toolPath || `/tools/${category.toLowerCase().replace(' ', '-')}/${toolSlug}`,
         usedAt: serverTimestamp()
-      });
+      };
+      if (data) {
+        payload.data = data;
+      }
+      const docRef = await addDoc(historyRef, payload);
       
       // Optioanlly fetch or prepend
       set((state) => ({
-        history: [{ id: docRef.id, toolSlug, category, toolPath, usedAt: new Date() }, ...state.history]
+        history: [{ id: docRef.id, ...payload, usedAt: new Date() }, ...state.history]
       }));
     } catch (error) {
       console.error("Failed to record usage:", error);

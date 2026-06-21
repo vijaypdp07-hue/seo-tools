@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Link2, Code, Share2, SearchCode, ChevronRight, Settings, ExternalLink, Monitor, Globe, Search, Server, MapPin, FileDigit } from "lucide-react";
+import { Link2, Code, Share2, SearchCode, ChevronRight, Settings, ExternalLink, Monitor, Globe, Search, Server, MapPin, FileDigit, Gauge } from "lucide-react";
 
 export function WebsiteToolsPage() {
   const tools = [
@@ -30,6 +30,7 @@ export function WebsiteToolsPage() {
     { name: "Link Tracker", icon: Link2, path: "/tools/website/link-tracker", desc: "Track clicks on your URLs." },
     { name: "Index Pages Checker", icon: Search, path: "/tools/website/index-pages-checker", desc: "Check multiple URLs for indexing." },
     { name: "Spam Score Checker", icon: SearchCode, path: "/tools/website/spam-score-checker", desc: "Check the Moz Spam Score for a domain." },
+    { name: "Page Speed Test", icon: Gauge, path: "/tools/website/page-speed-test", desc: "Analyze raw page performance utilizing Google PageSpeed Insights parameters." },
   ];
 
   return (
