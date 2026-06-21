@@ -1,0 +1,43 @@
+{
+  "$schema": "https://aistudio.google.com/ns/firebase-blueprint.json",
+  "collections": [
+    {
+      "name": "users",
+      "description": "User profiles. Document ID must match the user's Auth uid.",
+      "securityRules": [
+        {
+          "allow": ["read", "write"],
+          "condition": "request.auth != null && request.auth.uid == document"
+        }
+      ]
+    },
+    {
+      "name": "history",
+      "description": "User tool usage history.",
+      "securityRules": [
+        {
+          "allow": ["create"],
+          "condition": "request.auth != null && request.resource.data.userId == request.auth.uid"
+        },
+        {
+          "allow": ["read", "delete"],
+          "condition": "request.auth != null && resource.data.userId == request.auth.uid"
+        }
+      ]
+    },
+    {
+      "name": "bookmarks",
+      "description": "User bookmarked tools and saved outputs.",
+      "securityRules": [
+        {
+          "allow": ["create"],
+          "condition": "request.auth != null && request.resource.data.userId == request.auth.uid"
+        },
+        {
+          "allow": ["read", "update", "delete"],
+          "condition": "request.auth != null && resource.data.userId == request.auth.uid"
+        }
+      ]
+    }
+  ]
+}

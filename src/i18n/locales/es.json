@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "textTools": "Herramientas de Texto",
+    "imageTools": "Herramientas de Imagen",
+    "pdfTools": "Herramientas PDF",
+    "seoTools": "Herramientas SEO",
+    "categories": "Categorías",
+    "searchPlaceholder": "Buscar cualquier herramienta...",
+    "tools": "Herramientas",
+    "dashboard": "Panel",
+    "login": "Iniciar sesión"
+  },
+  "footer": {
+    "description": "Más de 100 herramientas en línea gratuitas para SEO, webmasters y desarrolladores. Rápido, seguro y privacidad primero.",
+    "categories": "Categorías",
+    "popularTools": "Herramientas Populares",
+    "legalSupport": "Legales y Soporte",
+    "contact": "Contáctenos",
+    "privacy": "Política de Privacidad",
+    "terms": "Términos de Servicio",
+    "rights": "Todos los derechos reservados."
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Ocurrió un error"
+  }
+}

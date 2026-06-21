@@ -1,0 +1,27 @@
+{
+  "nav": {
+    "textTools": "Text Tools",
+    "imageTools": "Image Tools",
+    "pdfTools": "PDF Tools",
+    "seoTools": "SEO Tools",
+    "categories": "Categories",
+    "searchPlaceholder": "Search any tool...",
+    "tools": "Tools",
+    "dashboard": "Dashboard",
+    "login": "Log In"
+  },
+  "footer": {
+    "description": "100+ Free Online Tools for SEO, Webmasters, and Developers. Fast, secure, and privacy-first.",
+    "categories": "Categories",
+    "popularTools": "Popular Tools",
+    "legalSupport": "Legal & Support",
+    "contact": "Contact Us",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred"
+  }
+}
