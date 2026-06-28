@@ -166,7 +166,6 @@ export const allTools: ToolItem[] = [
   { name: "Business Card Maker", desc: "Design custom business cards.", path: "/tools/design/business-card-maker", category: "Design Tools", icon: PenTool },
 
   // AI Tools
-  { name: "YouTube Summarizer", desc: "Turn any YouTube video into a detailed summary and formatted blog post using AI.", path: "/tools/ai/youtube-summarizer", category: "AI Tools", icon: Sparkles },
   { name: "Article Rewriter", desc: "Rewrite complete articles easily using AI.", path: "/tools/ai/article-rewriter", category: "AI Tools", icon: Sparkles },
   { name: "Free Grammar Checker", desc: "Check and correct grammar instantly using AI.", path: "/tools/ai/grammar-checker", category: "AI Tools", icon: Sparkles },
   { name: "Spell Checker", desc: "Advanced spelling correction powered by AI.", path: "/tools/ai/spell-checker", category: "AI Tools", icon: Sparkles },
