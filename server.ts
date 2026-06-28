@@ -720,6 +720,13 @@ async function startServer() {
       }
   });
 
+  // COEP/COOP headers for SharedArrayBuffer support in production (FFmpeg etc.)
+  app.use((req, res, next) => {
+    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    next();
+  });
+
   // Vite middleware for development
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({

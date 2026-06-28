@@ -3,133 +3,135 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
+import React, { Suspense } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Analytics } from "@vercel/analytics/react";
 import { AppLayout } from "./components/layout/AppLayout";
-import { HomePage } from "./pages/Home.page";
 
-import { LoginPage } from "./pages/auth/Login.page";
-import { RegisterPage } from "./pages/auth/Register.page";
-import { DashboardPage } from "./pages/dashboard/Dashboard.page";
-import { HistoryPage } from "./pages/dashboard/History.page";
-import { SavedPage } from "./pages/dashboard/Saved.page";
+const HomePage = React.lazy(() => import("./pages/Home.page").then(m => ({ default: m.HomePage })));
+const LoginPage = React.lazy(() => import("./pages/auth/Login.page").then(m => ({ default: m.LoginPage })));
+const RegisterPage = React.lazy(() => import("./pages/auth/Register.page").then(m => ({ default: m.RegisterPage })));
+const DashboardPage = React.lazy(() => import("./pages/dashboard/Dashboard.page").then(m => ({ default: m.DashboardPage })));
+const HistoryPage = React.lazy(() => import("./pages/dashboard/History.page").then(m => ({ default: m.HistoryPage })));
+const SavedPage = React.lazy(() => import("./pages/dashboard/Saved.page").then(m => ({ default: m.SavedPage })));
 
 // Text Tools
-import { TextToolsPage } from "./pages/tools/TextTools.page";
-import { WordCounterPage } from "./pages/tools/WordCounter.page";
-import { CaseConverterPage } from "./pages/tools/CaseConverter.page";
-import { WordCombinerPage } from "./pages/tools/WordCombiner.page";
-import { ReverseTextPage } from "./pages/tools/ReverseText.page";
-import { OnlineNotepadPage } from "./pages/tools/OnlineNotepad.page";
-import { MorseCodeTranslatorPage } from "./pages/tools/MorseCodeTranslator.page";
-import { TextToImagePage } from "./pages/tools/TextToImage.page";
-import { SmallTextGeneratorPage } from "./pages/tools/SmallTextGenerator.page";
-import { BoldTextGeneratorPage } from "./pages/tools/BoldTextGenerator.page";
-import { UpsideDownTextGeneratorPage } from "./pages/tools/UpsideDownTextGenerator.page";
-import { InvisibleCharacterPage } from "./pages/tools/InvisibleCharacter.page";
-import { SmallCapsGeneratorPage } from "./pages/tools/SmallCapsGenerator.page";
-import { OnlineTextEditorPage } from "./pages/tools/OnlineTextEditor.page";
-import { OcrPage } from "./pages/tools/Ocr.page";
-import { SpeechToTextPage } from "./pages/tools/SpeechToText.page";
+const TextToolsPage = React.lazy(() => import("./pages/tools/TextTools.page").then(m => ({ default: m.TextToolsPage })));
+const WordCounterPage = React.lazy(() => import("./pages/tools/WordCounter.page").then(m => ({ default: m.WordCounterPage })));
+const CaseConverterPage = React.lazy(() => import("./pages/tools/CaseConverter.page").then(m => ({ default: m.CaseConverterPage })));
+const WordCombinerPage = React.lazy(() => import("./pages/tools/WordCombiner.page").then(m => ({ default: m.WordCombinerPage })));
+const ReverseTextPage = React.lazy(() => import("./pages/tools/ReverseText.page").then(m => ({ default: m.ReverseTextPage })));
+const OnlineNotepadPage = React.lazy(() => import("./pages/tools/OnlineNotepad.page").then(m => ({ default: m.OnlineNotepadPage })));
+const MorseCodeTranslatorPage = React.lazy(() => import("./pages/tools/MorseCodeTranslator.page").then(m => ({ default: m.MorseCodeTranslatorPage })));
+const TextToImagePage = React.lazy(() => import("./pages/tools/TextToImage.page").then(m => ({ default: m.TextToImagePage })));
+const SmallTextGeneratorPage = React.lazy(() => import("./pages/tools/SmallTextGenerator.page").then(m => ({ default: m.SmallTextGeneratorPage })));
+const BoldTextGeneratorPage = React.lazy(() => import("./pages/tools/BoldTextGenerator.page").then(m => ({ default: m.BoldTextGeneratorPage })));
+const UpsideDownTextGeneratorPage = React.lazy(() => import("./pages/tools/UpsideDownTextGenerator.page").then(m => ({ default: m.UpsideDownTextGeneratorPage })));
+const InvisibleCharacterPage = React.lazy(() => import("./pages/tools/InvisibleCharacter.page").then(m => ({ default: m.InvisibleCharacterPage })));
+const SmallCapsGeneratorPage = React.lazy(() => import("./pages/tools/SmallCapsGenerator.page").then(m => ({ default: m.SmallCapsGeneratorPage })));
+const OnlineTextEditorPage = React.lazy(() => import("./pages/tools/OnlineTextEditor.page").then(m => ({ default: m.OnlineTextEditorPage })));
+const OcrPage = React.lazy(() => import("./pages/tools/Ocr.page").then(m => ({ default: m.OcrPage })));
+const SpeechToTextPage = React.lazy(() => import("./pages/tools/SpeechToText.page").then(m => ({ default: m.SpeechToTextPage })));
 
 // Image Tools
-import { ImageToolsPage } from "./pages/tools/ImageTools.page";
-import { ImageCompressorPage } from "./pages/tools/ImageCompressor.page";
-import { ConvertToJpgPage } from "./pages/tools/ConvertToJpg.page";
-import { FaviconGeneratorPage } from "./pages/tools/FaviconGenerator.page";
-import { TargetSizeCompressorPage } from "./pages/tools/TargetSizeCompressor.page";
-import { RgbToHexPage } from "./pages/tools/RgbToHex.page";
-import { MbToKbConverterPage } from "./pages/tools/MbToKbConverter.page";
-import { FormatConverterPage } from "./pages/tools/FormatConverter.page";
-import { HeicConverterPage } from "./pages/tools/HeicConverter.page";
-import { CropImagePage } from "./pages/tools/CropImage.page";
-import { MemeGeneratorPage } from "./pages/tools/MemeGenerator.page";
-import { ImageToSvgPage } from "./pages/tools/ImageToSvg.page";
-import { VideoToGifPage } from "./pages/tools/VideoToGif.page";
+const ImageToolsPage = React.lazy(() => import("./pages/tools/ImageTools.page").then(m => ({ default: m.ImageToolsPage })));
+const ImageCompressorPage = React.lazy(() => import("./pages/tools/ImageCompressor.page").then(m => ({ default: m.ImageCompressorPage })));
+const ConvertToJpgPage = React.lazy(() => import("./pages/tools/ConvertToJpg.page").then(m => ({ default: m.ConvertToJpgPage })));
+const FaviconGeneratorPage = React.lazy(() => import("./pages/tools/FaviconGenerator.page").then(m => ({ default: m.FaviconGeneratorPage })));
+const TargetSizeCompressorPage = React.lazy(() => import("./pages/tools/TargetSizeCompressor.page").then(m => ({ default: m.TargetSizeCompressorPage })));
+const RgbToHexPage = React.lazy(() => import("./pages/tools/RgbToHex.page").then(m => ({ default: m.RgbToHexPage })));
+const MbToKbConverterPage = React.lazy(() => import("./pages/tools/MbToKbConverter.page").then(m => ({ default: m.MbToKbConverterPage })));
+const FormatConverterPage = React.lazy(() => import("./pages/tools/FormatConverter.page").then(m => ({ default: m.FormatConverterPage })));
+const HeicConverterPage = React.lazy(() => import("./pages/tools/HeicConverter.page").then(m => ({ default: m.HeicConverterPage })));
+const CropImagePage = React.lazy(() => import("./pages/tools/CropImage.page").then(m => ({ default: m.CropImagePage })));
+const MemeGeneratorPage = React.lazy(() => import("./pages/tools/MemeGenerator.page").then(m => ({ default: m.MemeGeneratorPage })));
+const ImageToSvgPage = React.lazy(() => import("./pages/tools/ImageToSvg.page").then(m => ({ default: m.ImageToSvgPage })));
+const VideoToGifPage = React.lazy(() => import("./pages/tools/VideoToGif.page").then(m => ({ default: m.VideoToGifPage })));
 
 // PDF Tools
-import { PdfToolsPage } from "./pages/tools/PdfTools.page";
-import { MergePdfPage } from "./pages/tools/MergePdf.page";
-import { RotatePdfPage } from "./pages/tools/RotatePdf.page";
-import { LockPdfPage } from "./pages/tools/LockPdf.page";
-import { SplitPdfPage } from "./pages/tools/SplitPdf.page";
-import { PdfToJpgPage } from "./pages/tools/PdfToJpg.page";
-import { CompressPdfPage } from "./pages/tools/CompressPdf.page";
-import { WordToPdfPage } from "./pages/tools/WordToPdf.page";
-import { PdfToWordPage } from "./pages/tools/PdfToWord.page";
+const PdfToolsPage = React.lazy(() => import("./pages/tools/PdfTools.page").then(m => ({ default: m.PdfToolsPage })));
+const MergePdfPage = React.lazy(() => import("./pages/tools/MergePdf.page").then(m => ({ default: m.MergePdfPage })));
+const RotatePdfPage = React.lazy(() => import("./pages/tools/RotatePdf.page").then(m => ({ default: m.RotatePdfPage })));
+const LockPdfPage = React.lazy(() => import("./pages/tools/LockPdf.page").then(m => ({ default: m.LockPdfPage })));
+const SplitPdfPage = React.lazy(() => import("./pages/tools/SplitPdf.page").then(m => ({ default: m.SplitPdfPage })));
+const PdfToJpgPage = React.lazy(() => import("./pages/tools/PdfToJpg.page").then(m => ({ default: m.PdfToJpgPage })));
+const CompressPdfPage = React.lazy(() => import("./pages/tools/CompressPdf.page").then(m => ({ default: m.CompressPdfPage })));
+const WordToPdfPage = React.lazy(() => import("./pages/tools/WordToPdf.page").then(m => ({ default: m.WordToPdfPage })));
+const PdfToWordPage = React.lazy(() => import("./pages/tools/PdfToWord.page").then(m => ({ default: m.PdfToWordPage })));
 
 // Calculators
-import { CalculatorsPage } from "./pages/tools/Calculators.page";
-import { AgeCalculatorPage } from "./pages/tools/AgeCalculator.page";
-import { ChronologicalAgeCalculatorPage } from "./pages/tools/ChronologicalAgeCalculator.page";
+const CalculatorsPage = React.lazy(() => import("./pages/tools/Calculators.page").then(m => ({ default: m.CalculatorsPage })));
+const AgeCalculatorPage = React.lazy(() => import("./pages/tools/AgeCalculator.page").then(m => ({ default: m.AgeCalculatorPage })));
+const ChronologicalAgeCalculatorPage = React.lazy(() => import("./pages/tools/ChronologicalAgeCalculator.page").then(m => ({ default: m.ChronologicalAgeCalculatorPage })));
 
 // Dev Tools
-import { DevToolsPage } from "./pages/tools/DevTools.page";
-import { JsonViewerPage } from "./pages/tools/JsonViewer.page";
-import { BinaryTextConverterPage } from "./pages/tools/BinaryTextConverter.page";
-import { PhpFormatterPage } from "./pages/tools/PhpFormatter.page";
+const DevToolsPage = React.lazy(() => import("./pages/tools/DevTools.page").then(m => ({ default: m.DevToolsPage })));
+const JsonViewerPage = React.lazy(() => import("./pages/tools/JsonViewer.page").then(m => ({ default: m.JsonViewerPage })));
+const BinaryTextConverterPage = React.lazy(() => import("./pages/tools/BinaryTextConverter.page").then(m => ({ default: m.BinaryTextConverterPage })));
+const PhpFormatterPage = React.lazy(() => import("./pages/tools/PhpFormatter.page").then(m => ({ default: m.PhpFormatterPage })));
 
 // Website Tools
-import { WebsiteToolsPage } from "./pages/tools/WebsiteTools.page";
-import { MetaTagGeneratorPage } from "./pages/tools/MetaTagGenerator.page";
-import { OpenGraphGeneratorPage } from "./pages/tools/OpenGraphGenerator.page";
-import { RobotsTxtGeneratorPage } from "./pages/tools/RobotsTxtGenerator.page";
-import { TwitterCardGeneratorPage } from "./pages/tools/TwitterCardGenerator.page";
-import { XmlSitemapGeneratorPage } from "./pages/tools/XmlSitemapGenerator.page";
-import { HtmlViewerPage } from "./pages/tools/HtmlViewer.page";
-import { UrlOpenerPage } from "./pages/tools/UrlOpener.page";
-import { AdsenseCalculatorPage } from "./pages/tools/AdsenseCalculator.page";
-import { UrlShortenerPage } from "./pages/tools/UrlShortener.page";
-import { CheckServerStatusPage } from "./pages/tools/CheckServerStatus.page";
-import { WhatIsMyBrowserPage } from "./pages/tools/WhatIsMyBrowser.page";
-import { IsItDownPage } from "./pages/tools/IsItDown.page";
-import { MobileFriendlyTestPage } from "./pages/tools/MobileFriendlyTest.page";
-import { PageAuthorityCheckerPage } from "./pages/tools/PageAuthorityChecker.page";
-import { SpamScoreCheckerPage } from "./pages/tools/SpamScoreChecker.page";
-import { GoogleIndexCheckerPage } from "./pages/tools/GoogleIndexChecker.page";
-import { IndexPagesCheckerPage } from "./pages/tools/IndexPagesChecker.page";
-import { PageSpeedTestPage } from "./pages/tools/PageSpeedTest.page";
-import { GeoIpLocatorPage } from "./pages/tools/GeoIpLocator.page";
-import { DomainHostingCheckerPage } from "./pages/tools/DomainHostingChecker.page";
-import { WebsitePageSnooperPage } from "./pages/tools/WebsitePageSnooper.page";
-import { WebsitePageSizeCheckerPage } from "./pages/tools/WebsitePageSizeChecker.page";
-import { MetaTagsAnalyzerPage } from "./pages/tools/MetaTagsAnalyzer.page";
-import { DomainAgeCheckerPage } from "./pages/tools/DomainAgeChecker.page";
+const WebsiteToolsPage = React.lazy(() => import("./pages/tools/WebsiteTools.page").then(m => ({ default: m.WebsiteToolsPage })));
+const MetaTagGeneratorPage = React.lazy(() => import("./pages/tools/MetaTagGenerator.page").then(m => ({ default: m.MetaTagGeneratorPage })));
+const OpenGraphGeneratorPage = React.lazy(() => import("./pages/tools/OpenGraphGenerator.page").then(m => ({ default: m.OpenGraphGeneratorPage })));
+const RobotsTxtGeneratorPage = React.lazy(() => import("./pages/tools/RobotsTxtGenerator.page").then(m => ({ default: m.RobotsTxtGeneratorPage })));
+const TwitterCardGeneratorPage = React.lazy(() => import("./pages/tools/TwitterCardGenerator.page").then(m => ({ default: m.TwitterCardGeneratorPage })));
+const XmlSitemapGeneratorPage = React.lazy(() => import("./pages/tools/XmlSitemapGenerator.page").then(m => ({ default: m.XmlSitemapGeneratorPage })));
+const HtmlViewerPage = React.lazy(() => import("./pages/tools/HtmlViewer.page").then(m => ({ default: m.HtmlViewerPage })));
+const UrlOpenerPage = React.lazy(() => import("./pages/tools/UrlOpener.page").then(m => ({ default: m.UrlOpenerPage })));
+const AdsenseCalculatorPage = React.lazy(() => import("./pages/tools/AdsenseCalculator.page").then(m => ({ default: m.AdsenseCalculatorPage })));
+const UrlShortenerPage = React.lazy(() => import("./pages/tools/UrlShortener.page").then(m => ({ default: m.UrlShortenerPage })));
+const CheckServerStatusPage = React.lazy(() => import("./pages/tools/CheckServerStatus.page").then(m => ({ default: m.CheckServerStatusPage })));
+const WhatIsMyBrowserPage = React.lazy(() => import("./pages/tools/WhatIsMyBrowser.page").then(m => ({ default: m.WhatIsMyBrowserPage })));
+const IsItDownPage = React.lazy(() => import("./pages/tools/IsItDown.page").then(m => ({ default: m.IsItDownPage })));
+const MobileFriendlyTestPage = React.lazy(() => import("./pages/tools/MobileFriendlyTest.page").then(m => ({ default: m.MobileFriendlyTestPage })));
+const PageAuthorityCheckerPage = React.lazy(() => import("./pages/tools/PageAuthorityChecker.page").then(m => ({ default: m.PageAuthorityCheckerPage })));
+const SpamScoreCheckerPage = React.lazy(() => import("./pages/tools/SpamScoreChecker.page").then(m => ({ default: m.SpamScoreCheckerPage })));
+const GoogleIndexCheckerPage = React.lazy(() => import("./pages/tools/GoogleIndexChecker.page").then(m => ({ default: m.GoogleIndexCheckerPage })));
+const IndexPagesCheckerPage = React.lazy(() => import("./pages/tools/IndexPagesChecker.page").then(m => ({ default: m.IndexPagesCheckerPage })));
+const PageSpeedTestPage = React.lazy(() => import("./pages/tools/PageSpeedTest.page").then(m => ({ default: m.PageSpeedTestPage })));
+const GeoIpLocatorPage = React.lazy(() => import("./pages/tools/GeoIpLocator.page").then(m => ({ default: m.GeoIpLocatorPage })));
+const DomainHostingCheckerPage = React.lazy(() => import("./pages/tools/DomainHostingChecker.page").then(m => ({ default: m.DomainHostingCheckerPage })));
+const WebsitePageSnooperPage = React.lazy(() => import("./pages/tools/WebsitePageSnooper.page").then(m => ({ default: m.WebsitePageSnooperPage })));
+const WebsitePageSizeCheckerPage = React.lazy(() => import("./pages/tools/WebsitePageSizeChecker.page").then(m => ({ default: m.WebsitePageSizeCheckerPage })));
+const MetaTagsAnalyzerPage = React.lazy(() => import("./pages/tools/MetaTagsAnalyzer.page").then(m => ({ default: m.MetaTagsAnalyzerPage })));
+const DomainAgeCheckerPage = React.lazy(() => import("./pages/tools/DomainAgeChecker.page").then(m => ({ default: m.DomainAgeCheckerPage })));
 
-import { DomainToolsPage } from "./pages/tools/DomainTools.page";
+const DomainToolsPage = React.lazy(() => import("./pages/tools/DomainTools.page").then(m => ({ default: m.DomainToolsPage })));
 
-import { RedirectCheckerPage } from "./pages/tools/RedirectChecker.page";
-import { PageComparisonPage } from "./pages/tools/PageComparison.page";
-import { OpenGraphCheckerPage } from "./pages/tools/OpenGraphChecker.page";
-import { CloakingCheckerPage } from "./pages/tools/CloakingChecker.page";
-import { GoogleCacheCheckerPage } from "./pages/tools/GoogleCacheChecker.page";
-import { ReverseImageSearchPage } from "./pages/tools/ReverseImageSearch.page";
-import { ComingSoonPage } from "./pages/tools/ComingSoon.page";
+const RedirectCheckerPage = React.lazy(() => import("./pages/tools/RedirectChecker.page").then(m => ({ default: m.RedirectCheckerPage })));
+const PageComparisonPage = React.lazy(() => import("./pages/tools/PageComparison.page").then(m => ({ default: m.PageComparisonPage })));
+const OpenGraphCheckerPage = React.lazy(() => import("./pages/tools/OpenGraphChecker.page").then(m => ({ default: m.OpenGraphCheckerPage })));
+const CloakingCheckerPage = React.lazy(() => import("./pages/tools/CloakingChecker.page").then(m => ({ default: m.CloakingCheckerPage })));
+const GoogleCacheCheckerPage = React.lazy(() => import("./pages/tools/GoogleCacheChecker.page").then(m => ({ default: m.GoogleCacheCheckerPage })));
+const ReverseImageSearchPage = React.lazy(() => import("./pages/tools/ReverseImageSearch.page").then(m => ({ default: m.ReverseImageSearchPage })));
+const ComingSoonPage = React.lazy(() => import("./pages/tools/ComingSoon.page").then(m => ({ default: m.ComingSoonPage })));
 
-import { OtherToolsPage } from "./pages/tools/OtherTools.page";
-import { FakeNameGeneratorPage } from "./pages/tools/FakeNameGenerator.page";
-import { CreditCardGeneratorPage } from "./pages/tools/CreditCardGenerator.page";
-import { EmojisPage } from "./pages/tools/Emojis.page";
-import { PasswordGeneratorPage } from "./pages/tools/PasswordGenerator.page";
-import { QrCodeGeneratorPage } from "./pages/tools/QrCodeGenerator.page";
-import { KeywordsDensityCheckerPage } from "./pages/tools/KeywordsDensityChecker.page";
+const OtherToolsPage = React.lazy(() => import("./pages/tools/OtherTools.page").then(m => ({ default: m.OtherToolsPage })));
+const FakeNameGeneratorPage = React.lazy(() => import("./pages/tools/FakeNameGenerator.page").then(m => ({ default: m.FakeNameGeneratorPage })));
+const CreditCardGeneratorPage = React.lazy(() => import("./pages/tools/CreditCardGenerator.page").then(m => ({ default: m.CreditCardGeneratorPage })));
+const EmojisPage = React.lazy(() => import("./pages/tools/Emojis.page").then(m => ({ default: m.EmojisPage })));
+const PasswordGeneratorPage = React.lazy(() => import("./pages/tools/PasswordGenerator.page").then(m => ({ default: m.PasswordGeneratorPage })));
+const QrCodeGeneratorPage = React.lazy(() => import("./pages/tools/QrCodeGenerator.page").then(m => ({ default: m.QrCodeGeneratorPage })));
+const KeywordsDensityCheckerPage = React.lazy(() => import("./pages/tools/KeywordsDensityChecker.page").then(m => ({ default: m.KeywordsDensityCheckerPage })));
 
 // Calculators
-import { HoursCalculatorPage } from "./pages/tools/HoursCalculator.page";
+const HoursCalculatorPage = React.lazy(() => import("./pages/tools/HoursCalculator.page").then(m => ({ default: m.HoursCalculatorPage })));
 
-import { ContactPage } from "./pages/Contact.page";
-import { DesignStudioPage } from "./pages/tools/DesignStudio.page";
-import { AIToolsPage } from "./pages/tools/AITools.page";
-import { GenericAIToolPage } from "./pages/tools/GenericAITool.page";
-import { ToolsIndexPage } from "./pages/ToolsIndex.page";
+const ContactPage = React.lazy(() => import("./pages/Contact.page").then(m => ({ default: m.ContactPage })));
+const DesignStudioPage = React.lazy(() => import("./pages/tools/DesignStudio.page").then(m => ({ default: m.DesignStudioPage })));
+const AIToolsPage = React.lazy(() => import("./pages/tools/AITools.page").then(m => ({ default: m.AIToolsPage })));
+const GenericAIToolPage = React.lazy(() => import("./pages/tools/GenericAITool.page").then(m => ({ default: m.GenericAIToolPage })));
+const ToolsIndexPage = React.lazy(() => import("./pages/ToolsIndex.page").then(m => ({ default: m.ToolsIndexPage })));
 
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AppLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="contact" element={<ContactPage />} />
+      <Suspense fallback={<div className="p-8 text-center">Loading tool...</div>}>
+        <Routes>
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="contact" element={<ContactPage />} />
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
           <Route path="dashboard" element={<DashboardPage />} />
@@ -304,8 +306,9 @@ export default function App() {
           <Route path="tools/ai/ai-writer" element={<GenericAIToolPage title="AI Writer" description="General-purpose AI writing assistant." slug="ai-writer" categoryName="AI Tools" categoryPath="/tools/ai" inputLabel="What do you want to write?" inputPlaceholder="Describe what you want the AI to write..." promptTemplate="Please write the following:" actionButtonText="Write Content" />} />
 
           <Route path="*" element={<div className="p-8 text-center"><h2 className="text-2xl font-bold">404 - Not Found</h2></div>} />
-        </Route>
-      </Routes>
+          </Route>
+        </Routes>
+      </Suspense>
       <Analytics />
     </BrowserRouter>
   );

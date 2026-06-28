@@ -5,6 +5,18 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            ffmpeg: ['@ffmpeg/ffmpeg', '@ffmpeg/util'],
+            pdf: ['pdf-lib', 'pdfjs-dist', 'html2pdf.js'],
+            fabric: ['fabric'],
+            tesseract: ['tesseract.js'],
+          }
+        }
+      }
+    },
     plugins: [
       react(), 
       tailwindcss(),

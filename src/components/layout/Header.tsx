@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Search, Moon, Sun, Globe, Menu, User, ChevronDown, X, ArrowRight } from "lucide-react";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { useAuthStore } from "@/lib/store/useAuthStore";
 import { useTranslation } from "react-i18next";

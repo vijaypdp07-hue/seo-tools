@@ -1,7 +1,7 @@
 import { Navigate, useLocation, Link } from "react-router-dom";
 import { useAuthStore } from "@/lib/store/useAuthStore";
 import { Mail, Lock, User as UserIcon, Key } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 export function RegisterPage() {
@@ -111,43 +111,56 @@ export function RegisterPage() {
       </div>
 
       <form className="space-y-4 mb-8" onSubmit={handleEmailRegister}>
-        <div className="relative">
+        <div className="group relative">
           <UserIcon className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400 group-focus-within:text-primary transition-colors" />
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Full Name"
-            className="w-full pl-11 pr-4 py-3 bg-bg-base border border-border-base rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-primary disabled:opacity-50"
+            className="peer w-full pl-11 pr-4 py-3 bg-bg-base border border-border-base rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-primary disabled:opacity-50 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-1 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-red-500"
             required
+            minLength={2}
             disabled={isLoggingIn}
           />
+          <p className="mt-1 hidden text-xs text-red-500 peer-invalid:[&:not(:placeholder-shown):not(:focus)]:block">
+            Please enter your full name.
+          </p>
         </div>
 
-        <div className="relative">
+        <div className="group relative">
           <Mail className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400 group-focus-within:text-primary transition-colors" />
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email address"
-            className="w-full pl-11 pr-4 py-3 bg-bg-base border border-border-base rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-primary disabled:opacity-50"
+            className="peer w-full pl-11 pr-4 py-3 bg-bg-base border border-border-base rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-primary disabled:opacity-50 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-1 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-red-500"
             required
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            title="Please enter a valid email address."
             disabled={isLoggingIn}
           />
+          <p className="mt-1 hidden text-xs text-red-500 peer-invalid:[&:not(:placeholder-shown):not(:focus)]:block">
+            Please enter a valid email address.
+          </p>
         </div>
 
-        <div className="relative">
+        <div className="group relative">
           <Lock className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400 group-focus-within:text-primary transition-colors" />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="w-full pl-11 pr-4 py-3 bg-bg-base border border-border-base rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-primary disabled:opacity-50"
+            className="peer w-full pl-11 pr-4 py-3 bg-bg-base border border-border-base rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-primary disabled:opacity-50 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-1 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-red-500"
             required
+            minLength={6}
             disabled={isLoggingIn}
           />
+          <p className="mt-1 hidden text-xs text-red-500 peer-invalid:[&:not(:placeholder-shown):not(:focus)]:block">
+            Password must be at least 6 characters.
+          </p>
         </div>
 
         <button

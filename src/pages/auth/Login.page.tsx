@@ -1,7 +1,7 @@
 import { Navigate, useLocation, Link } from "react-router-dom";
 import { useAuthStore } from "@/lib/store/useAuthStore";
 import { Mail, Lock, Key } from "lucide-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { toast } from "sonner";
 
 export function LoginPage() {
@@ -57,15 +57,15 @@ export function LoginPage() {
   };
 
   return (
-    <div className="max-w-xl mx-auto w-full px-4 py-16 animate-in fade-in duration-300">
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-text-primary mt-8">Login to your account</h1>
+    <div className="max-w-[480px] mx-auto w-full px-4 py-12 md:py-20 animate-in fade-in duration-300">
+      <div className="text-center mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold text-text-primary">Login to your account</h1>
       </div>
 
-      <div className="flex flex-col sm:flex-row gap-4 mb-8">
+      <div className="flex flex-col sm:flex-row gap-3 mb-8">
         <button
           onClick={() => handleNotImplemented("Facebook")}
-          className="flex-1 py-3 px-4 bg-[#3b5998] text-white rounded-lg hover:bg-[#2d4373] transition-colors font-medium flex items-center justify-center gap-2"
+          className="flex-1 py-2.5 px-4 bg-[#3b5998] text-white rounded-lg hover:bg-[#2d4373] transition-colors font-medium flex items-center justify-center gap-2"
         >
           <svg viewBox="0 0 24 24" className="size-5 fill-current" aria-hidden="true">
             <path d="M23.998 12c0-6.628-5.372-12-11.999-12C5.372 0 0 5.372 0 12c0 5.988 4.388 10.954 10.124 11.854v-8.385H7.078v-3.469h3.046V9.356c0-3.007 1.792-4.669 4.532-4.669 1.313 0 2.686.234 2.686.234v2.953H15.83c-1.49 0-1.955.925-1.955 1.874V12h3.328l-.532 3.469h-2.796v8.385C19.612 22.954 24 17.988 24 12z" />
@@ -76,7 +76,7 @@ export function LoginPage() {
         <button
           onClick={handleGoogleLogin}
           disabled={isLoggingIn}
-          className="flex-1 py-3 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+          className="flex-1 py-2.5 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium flex items-center justify-center gap-2 disabled:opacity-50"
         >
           {isLoggingIn ? (
             <div className="size-5 border-2 border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -93,52 +93,70 @@ export function LoginPage() {
 
         <button
           onClick={() => handleNotImplemented("SSO")}
-          className="flex-1 py-3 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium flex items-center justify-center gap-2"
+          className="flex-1 py-2.5 px-4 bg-white text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors font-medium flex items-center justify-center gap-2"
         >
-          <Key className="size-5" />
+          <Key className="size-5 text-gray-500" />
           SSO
         </button>
       </div>
 
+      <div className="relative mb-8">
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full border-t border-border-base"></div>
+        </div>
+        <div className="relative flex justify-center text-sm">
+          <span className="px-3 bg-bg-base text-text-muted">Or log in with email</span>
+        </div>
+      </div>
+
       <form className="space-y-4 mb-8" onSubmit={handleEmailLogin}>
-        <div className="relative">
-          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400" />
+        <div className="group relative">
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400 group-focus-within:text-primary transition-colors" />
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Email"
-            className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors text-black placeholder:text-gray-400"
+            placeholder="Email address"
+            className="peer w-full pl-11 pr-4 py-3 bg-bg-base border border-border-base rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-primary disabled:opacity-50 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-1 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-red-500"
             required
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+            title="Please enter a valid email address."
             disabled={isLoggingIn}
           />
+          <p className="mt-1 hidden text-xs text-red-500 peer-invalid:[&:not(:placeholder-shown):not(:focus)]:block">
+            Please enter a valid email address.
+          </p>
         </div>
 
-        <div className="relative">
-          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400" />
+        <div className="group relative">
+          <Lock className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-gray-400 group-focus-within:text-primary transition-colors" />
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
-            className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition-colors text-black placeholder:text-gray-400"
+            className="peer w-full pl-11 pr-4 py-3 bg-bg-base border border-border-base rounded-xl focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all text-text-primary disabled:opacity-50 invalid:[&:not(:placeholder-shown):not(:focus)]:border-red-500 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-1 invalid:[&:not(:placeholder-shown):not(:focus)]:ring-red-500"
             required
+            minLength={6}
             disabled={isLoggingIn}
           />
+          <p className="mt-1 hidden text-xs text-red-500 peer-invalid:[&:not(:placeholder-shown):not(:focus)]:block">
+            Password must be at least 6 characters.
+          </p>
         </div>
 
         <button
           type="submit"
           disabled={isLoggingIn}
-          className="w-full sm:w-auto sm:mx-auto block mt-8 py-3 px-8 bg-[#E03C32] text-white rounded-lg hover:bg-red-700 transition-colors font-bold text-lg disabled:opacity-50"
+          className="w-full py-3.5 px-8 bg-[#E03C32] text-white rounded-xl hover:bg-red-700 transition-all font-bold text-lg disabled:opacity-70 flex justify-center items-center shadow-md hover:shadow-lg mt-6"
         >
           {isLoggingIn ? "Logging in..." : "Log in"}
         </button>
       </form>
 
-      <div className="text-center text-gray-600">
-        <p className="text-lg">
-          Not a member? <Link to="/register" className="text-[#E03C32] hover:underline font-medium">Sign up</Link>
+      <div className="text-center text-text-secondary mt-8">
+        <p className="text-base mb-3">
+          Not a member? <Link to="/register" className="text-[#E03C32] hover:text-red-700 hover:underline font-semibold transition-colors">Sign up</Link>
         </p>
       </div>
     </div>
