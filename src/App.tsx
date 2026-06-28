@@ -9,6 +9,7 @@ import { AppLayout } from "./components/layout/AppLayout";
 import { HomePage } from "./pages/Home.page";
 
 import { LoginPage } from "./pages/auth/Login.page";
+import { RegisterPage } from "./pages/auth/Register.page";
 import { DashboardPage } from "./pages/dashboard/Dashboard.page";
 import { HistoryPage } from "./pages/dashboard/History.page";
 import { SavedPage } from "./pages/dashboard/Saved.page";
@@ -130,6 +131,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="contact" element={<ContactPage />} />
           <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="dashboard/history" element={<HistoryPage />} />
           <Route path="dashboard/saved" element={<SavedPage />} />

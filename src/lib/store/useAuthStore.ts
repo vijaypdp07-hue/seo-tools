@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { auth, db } from "../firebase";
-import { onAuthStateChanged, User, signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut } from "firebase/auth";
+import { onAuthStateChanged, User, signInWithPopup, GoogleAuthProvider, signOut as firebaseSignOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 
 interface AuthState {
@@ -8,6 +8,8 @@ interface AuthState {
   tier: "free" | "pro" | "team" | null;
   isLoading: boolean;
   loginWithGoogle: () => Promise<void>;
+  loginWithEmail: (email: string, pass: string) => Promise<void>;
+  registerWithEmail: (email: string, pass: string, name: string) => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -39,6 +41,13 @@ export const useAuthStore = create<AuthState>((set) => {
     loginWithGoogle: async () => {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
+    },
+    loginWithEmail: async (email, pass) => {
+      await signInWithEmailAndPassword(auth, email, pass);
+    },
+    registerWithEmail: async (email, pass, name) => {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+      await updateProfile(userCredential.user, { displayName: name });
     },
     signOut: async () => {
       await firebaseSignOut(auth);
