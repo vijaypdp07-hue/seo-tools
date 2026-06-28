@@ -3,6 +3,7 @@ import { useAuthStore } from "@/lib/store/useAuthStore";
 import { Mail, Lock, User as UserIcon, Key } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { SEO } from "@/components/SEO";
 
 export function RegisterPage() {
   const { user, loginWithGoogle, registerWithEmail, isLoading } = useAuthStore();
@@ -59,6 +60,7 @@ export function RegisterPage() {
 
   return (
     <div className="max-w-[480px] mx-auto w-full px-4 py-12 md:py-20 animate-in fade-in duration-300">
+      <SEO title="Sign up - Web Tools" description="Create a new Web Tools account to save your favorite tools and view your history." />
       <div className="text-center mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-text-primary">Create new account</h1>
       </div>

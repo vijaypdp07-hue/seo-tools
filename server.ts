@@ -5,6 +5,7 @@ import dns from "dns/promises";
 import * as http from "http";
 import * as https from "https";
 import { GoogleGenAI } from "@google/genai";
+import { YoutubeTranscript } from "youtube-transcript";
 
 async function startServer() {
   const app = express();
@@ -718,6 +719,74 @@ async function startServer() {
           console.error("AI API failed:", err);
           res.status(500).json({ error: "AI generation failed: " + err.message });
       }
+  });
+
+  app.post("/api/youtube-summarizer", async (req, res) => {
+      const { url } = req.body;
+      if (!url) {
+          return res.status(400).json({ error: "YouTube URL is required" });
+      }
+
+      try {
+          // Fetch transcript
+          let transcriptObj;
+          try {
+              transcriptObj = await YoutubeTranscript.fetchTranscript(url);
+          } catch (err: any) {
+              return res.status(400).json({ error: "Could not fetch transcript. The video might not have captions or is restricted." });
+          }
+
+          const transcriptText = transcriptObj.map(t => t.text).join(" ");
+          
+          if (!process.env.GEMINI_API_KEY) {
+              return res.json({
+                  summary: "Mocked Summary: The video is about web development and AI.",
+                  blogPost: "Mocked Blog Post:\n\n# Web Dev and AI\n\nThis video talks about the future of web dev...",
+                  mocked: true
+              });
+          }
+
+          const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+          
+          // Generate Summary
+          const summaryResponse = await ai.models.generateContent({
+              model: "gemini-2.5-flash",
+              contents: `Please provide a detailed summary and key takeaways for the following YouTube video transcript:\n\n${transcriptText.slice(0, 50000)}`
+          });
+          
+          // Generate Blog Post
+          const blogResponse = await ai.models.generateContent({
+              model: "gemini-2.5-flash",
+              contents: `Turn the following YouTube video transcript into a well-formatted, engaging blog post. Use markdown formatting, headings, and bullet points where appropriate:\n\n${transcriptText.slice(0, 50000)}`
+          });
+
+          res.json({
+              summary: summaryResponse.text,
+              blogPost: blogResponse.text
+          });
+      } catch (err: any) {
+          console.error("Youtube summarizer failed:", err);
+          res.status(500).json({ error: "Failed to process video: " + err.message });
+      }
+  });
+
+  app.get("/sitemap.xml", (req, res) => {
+    const baseUrl = "https://example.com"; // Replace with actual domain
+    const urls = [
+      "", "/tools", "/tools/text/word-counter", "/tools/image/image-compressor", 
+      "/tools/ai/ai-writer", "/tools/website/page-speed-test",
+      "/login", "/register", "/contact"
+      // Can add more dynamically if needed
+    ];
+    
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+    urls.forEach(url => {
+      xml += `\n  <url>\n    <loc>${baseUrl}${url}</loc>\n    <changefreq>weekly</changefreq>\n    <priority>${url === "" ? "1.0" : "0.8"}</priority>\n  </url>`;
+    });
+    xml += `\n</urlset>`;
+    
+    res.header("Content-Type", "application/xml");
+    res.send(xml);
   });
 
   // COEP/COOP headers for SharedArrayBuffer support in production (FFmpeg etc.)

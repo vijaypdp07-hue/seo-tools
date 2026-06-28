@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { allTools, getCategories } from "@/lib/data/tools";
+import { SEO } from "@/components/SEO";
 
 export function HomePage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,6 +42,7 @@ export function HomePage() {
 
   return (
     <div className="space-y-16 py-8 md:py-12 animate-in fade-in duration-300">
+      <SEO />
       {/* Hero Section */}
       <section className="text-center max-w-3xl mx-auto space-y-6">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-text-primary">

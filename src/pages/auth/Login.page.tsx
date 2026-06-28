@@ -3,6 +3,7 @@ import { useAuthStore } from "@/lib/store/useAuthStore";
 import { Mail, Lock, Key } from "lucide-react";
 import React, { useState } from "react";
 import { toast } from "sonner";
+import { SEO } from "@/components/SEO";
 
 export function LoginPage() {
   const { user, loginWithGoogle, loginWithEmail, isLoading } = useAuthStore();
@@ -58,6 +59,7 @@ export function LoginPage() {
 
   return (
     <div className="max-w-[480px] mx-auto w-full px-4 py-12 md:py-20 animate-in fade-in duration-300">
+      <SEO title="Login - Web Tools" description="Log in to your Web Tools account to save your favorite tools and view your history." />
       <div className="text-center mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-text-primary">Login to your account</h1>
       </div>

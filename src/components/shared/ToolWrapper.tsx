@@ -6,6 +6,7 @@ import { useBookmarkStore } from "@/lib/store/useBookmarkStore";
 import { toast } from "sonner";
 import { useAuthStore } from "@/lib/store/useAuthStore";
 import { ToolErrorBoundary } from "@/components/error/ToolErrorBoundary";
+import { SEO } from "@/components/SEO";
 
 interface ToolWrapperProps {
   title: string;
@@ -58,6 +59,7 @@ export function ToolWrapper({
 
   return (
     <div className="max-w-5xl mx-auto space-y-8 animate-in fade-in duration-300">
+      <SEO title={`${title} - Web Tools`} description={description} />
       {/* Breadcrumbs */}
       <nav aria-label="breadcrumb" className="flex items-center text-sm text-text-muted">
         <Link to="/" className="hover:text-primary transition-colors">Home</Link>

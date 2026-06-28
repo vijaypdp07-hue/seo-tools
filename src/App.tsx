@@ -122,6 +122,7 @@ const ContactPage = React.lazy(() => import("./pages/Contact.page").then(m => ({
 const DesignStudioPage = React.lazy(() => import("./pages/tools/DesignStudio.page").then(m => ({ default: m.DesignStudioPage })));
 const AIToolsPage = React.lazy(() => import("./pages/tools/AITools.page").then(m => ({ default: m.AIToolsPage })));
 const GenericAIToolPage = React.lazy(() => import("./pages/tools/GenericAITool.page").then(m => ({ default: m.GenericAIToolPage })));
+const YoutubeSummarizerPage = React.lazy(() => import("./pages/tools/YoutubeSummarizer.page").then(m => ({ default: m.YoutubeSummarizerPage })));
 const ToolsIndexPage = React.lazy(() => import("./pages/ToolsIndex.page").then(m => ({ default: m.ToolsIndexPage })));
 
 export default function App() {
@@ -304,6 +305,7 @@ export default function App() {
           <Route path="tools/ai/content-detector" element={<GenericAIToolPage title="AI Content Detector" description="Detect AI generated content." slug="content-detector" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Analyze the following text and determine the probability of it being written by AI vs a human. Provide a clear percentage breakdown and reasoning:" actionButtonText="Analyze Content" />} />
           <Route path="tools/ai/humanizer" element={<GenericAIToolPage title="AI Humanizer" description="Make AI text sound more human." slug="humanizer" categoryName="AI Tools" categoryPath="/tools/ai" promptTemplate="Rewrite the following text to make it sound completely human, natural, conversational, and avoiding typical AI formalisms:" actionButtonText="Humanize Text" />} />
           <Route path="tools/ai/ai-writer" element={<GenericAIToolPage title="AI Writer" description="General-purpose AI writing assistant." slug="ai-writer" categoryName="AI Tools" categoryPath="/tools/ai" inputLabel="What do you want to write?" inputPlaceholder="Describe what you want the AI to write..." promptTemplate="Please write the following:" actionButtonText="Write Content" />} />
+          <Route path="tools/ai/youtube-summarizer" element={<YoutubeSummarizerPage />} />
 
           <Route path="*" element={<div className="p-8 text-center"><h2 className="text-2xl font-bold">404 - Not Found</h2></div>} />
           </Route>
